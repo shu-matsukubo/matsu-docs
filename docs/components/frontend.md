@@ -2,51 +2,51 @@
 
 ## 位置づけ
 
-`matsu-front`は、利用者が家計簿機能を操作するためのブラウザ向けUIです。
+`matsu-front` は、利用者が `matsu` の機能を操作するためのブラウザ向けUIです。
 
-データ取得と認証操作はBFFを経由し、APIやAuth ServerのJSON APIを直接呼び出しません。ログイン開始画面は持ちますが、資格情報を入力するログイン・登録フォームはAuth Serverが提供します。
+アプリケーションAPIとJSON認証APIはBFFだけを呼び出します。`matsu-api`、`matsu-toolbox-api`、`matsu-arcade-api`、2つのAuth Serverへ直接業務requestを送りません。`matsu-auth` のlogin/register画面はBrowser redirectの遷移先ですが、開始とcallbackはBFFが管理します。
 
 ## 責務
 
-- 家計簿機能の画面表示とユーザー操作
-- 画面遷移とクライアント側の状態管理
-- BFFが公開するAPIの呼び出し
-- BFFセッションの有効性確認
-- 認証開始と、認証切れ時の再ログイン誘導
-- ローディング、入力エラー、APIエラーの表示
+- 画面表示、ユーザー操作、画面遷移
+- 入力中の値など、クライアント側の一時状態管理
+- BFFが公開する明示的なAPI routeの呼び出し
+- BFF sessionとresource接続状態の確認
+- 家計簿・Toolboxの認可開始とArcade login/register/disconnect操作の開始
+- ローディング、入力error、API error、接続切れの表示
 
 ## 責務に含めないもの
 
-- アクセストークン、リフレッシュトークンの保存
-- JWTの生成や検証
+- access token、refresh token、client secretの保存
+- JWTの生成・検証やBearer headerの組み立て
 - ユーザー資格情報の検証
-- 家計簿データの永続化
-- APIとAuth Serverへの直接的な業務リクエスト
+- Backend APIやAuth ServerのJSON APIへの直接通信
+- 各domainデータの永続化
 
 ## 概念構成
 
 | 領域 | 役割 |
 | --- | --- |
-| Presentation | ページ、画面部品、スタイル |
+| Presentation | page、画面部品、style |
 | Client State | 入力中の値や画面表示に必要な一時状態 |
-| Server State | BFFから取得したデータ、キャッシュ、再取得 |
-| BFF Client | OpenAPIに基づく型付きAPI通信 |
-| Authentication UI | セッション確認、ログイン開始、認証切れ通知 |
+| Server State | BFFから取得したデータ、cache、再取得 |
+| BFF Client | BFF OpenAPIに基づく型付きAPI通信 |
+| Authentication UI | session確認、接続開始、接続切れ通知 |
 
 ## 技術選定
 
 | 技術 | この構成での狙い |
 | --- | --- |
-| React | コンポーネント単位で画面と操作を構築する |
+| React | component単位で画面と操作を構築する |
 | TypeScript | UIとBFF API契約を型で接続する |
-| Vite | 開発サーバーとFrontendビルドをシンプルに構成する |
-| TanStack Query | BFFから取得するサーバー状態と再取得を管理する |
-| OpenAPI | BFFを基準にリクエスト・レスポンス契約を共有する |
-| `openapi-fetch` | 生成された型を利用してBFF APIを呼び出す |
+| Vite | 開発serverとFrontend buildを構成する |
+| TanStack Query | BFFから取得するserver stateと再取得を管理する |
+| OpenAPI | BFFを基準にrequest・response契約を共有する |
+| `openapi-fetch` | 生成された型を利用してBFF routeを呼び出す |
 
-## API契約
+## BFFとの境界
 
-BFFが生成したOpenAPIドキュメントから、Frontend用のTypeScript型を生成します。URL、クエリ、リクエストボディ、成功・エラーレスポンスを手書きで重複定義しないことを基本方針とします。
+FrontendのAPI clientが持つBackend origin設定は `VITE_BFF_BASE_URL` だけです。通信ではBFFのsession Cookieを送るため `credentials: include` を使い、Browser JavaScriptからtokenを読み書きしません。
 
 契約の流れは次のとおりです。
 
@@ -57,11 +57,6 @@ BFF Route / Zod Schema
   -> openapi-fetch Client
 ```
 
-## 認証情報の扱い
+BFFがresource別refreshを行った後も `401` となった場合、Frontendは対象機能の接続切れを扱います。家計簿向けには後方互換の明示refresh helperもありますが、Frontendがrefresh tokenを扱うことはありません。
 
-- ブラウザが保持する認証関連情報は、BFFが発行する`HttpOnly`セッションCookie
-- JavaScriptからアクセストークンやリフレッシュトークンを読み書きしない
-- BFFから認証エラーの`401`を受けた場合はBFFのトークン更新を試みる
-- 更新できなければセッション切れを通知し、ログインフローへ戻す
-
-全体の流れは[認証・セッション構成](../architecture/authentication.md)を参照してください。
+全体の正式経路は[システム全体構成](../architecture/system-overview.md)、tokenをBrowserから隠す仕組みは[認証・セッション構成](../architecture/authentication.md)を参照してください。
