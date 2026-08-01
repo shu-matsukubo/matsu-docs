@@ -36,6 +36,8 @@ Browserとのsecurity boundaryとしてsessionを管理し、2つのAuth Server�
 
 BFFはBrowserから受け取ったAuthorization header、Cookie、hop-by-hop headerを上流へ転送しません。routeに対応するslotのaccess tokenだけを付与し、上流URLをBrowser responseへ公開しません。
 
+BFFのrouteとschemaから生成するOpenAPIがFrontend向けschemaの正本です。上流APIの契約はそれぞれの提供サービスが所有し、BFFは許可したrouteとresponseだけを自身の契約へ変換します。
+
 ## 認証仲介
 
 | resource | Auth Server | 現在の接続方式 | refresh |
@@ -64,4 +66,4 @@ Redis sessionはversion 2 schemaを持ち、3つのresource slotを独立して�
 | `@hono/zod-openapi` | route、schema、OpenAPIを一つの契約から構築する |
 | Redis | resource別token、Browser session、短命なOAuth状態をBFF境界内で管理する |
 
-全体のdispatch関係は[システム全体構成](../architecture/system-overview.md)、provider別の認証処理は[認証・セッション構成](../architecture/authentication.md)を参照してください。
+全体のdispatch関係は[システム全体構成](../architecture/system-overview.md)、provider別の認証処理は[認証・セッション構成](../architecture/authentication.md)、上流との契約境界は[API契約](../architecture/api-contracts.md)を参照してください。

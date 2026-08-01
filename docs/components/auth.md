@@ -63,4 +63,6 @@ Browser向けlogin/register UI、JSON認証API、Authorization Code + PKCE、res
 
 `matsu-api` と `matsu-toolbox-api` は同じJWKSを利用しますが、異なるaudienceを厳密に検証します。AuthのPostgreSQLは2 APIのdomain DBやBFF Redisと共有しません。
 
-全体のrealm関係は[システム全体構成](../architecture/system-overview.md)、flowの詳細は[認証・セッション構成](../architecture/authentication.md)を参照してください。
+生成済みOpenAPIと自動testは持たないため、認証APIのendpoint単位の契約は実装を正本とします。BFFは認証APIの利用者であり、Browser向けsessionと接続状態の契約はBFF側で所有します。
+
+全体のrealm関係は[システム全体構成](../architecture/system-overview.md)、flowの詳細は[認証・セッション構成](../architecture/authentication.md)、契約の管理方針は[API契約](../architecture/api-contracts.md)を参照してください。
