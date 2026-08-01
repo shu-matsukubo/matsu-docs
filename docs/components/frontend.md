@@ -59,4 +59,6 @@ BFF Route / Zod Schema
 
 BFFがresource別refreshを行った後も `401` となった場合、Frontendは対象機能の接続切れを扱います。家計簿向けには後方互換の明示refresh helperもありますが、Frontendがrefresh tokenを扱うことはありません。
 
-全体の正式経路は[システム全体構成](../architecture/system-overview.md)、tokenをBrowserから隠す仕組みは[認証・セッション構成](../architecture/authentication.md)を参照してください。
+FrontendはBFF OpenAPIから生成した型だけをサービス間schemaとして利用し、Resource APIのOpenAPIや内部型へ直接依存しません。
+
+全体の正式経路は[システム全体構成](../architecture/system-overview.md)、tokenをBrowserから隠す仕組みは[認証・セッション構成](../architecture/authentication.md)、schemaの正本は[API契約](../architecture/api-contracts.md)を参照してください。

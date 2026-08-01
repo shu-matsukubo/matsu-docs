@@ -117,7 +117,7 @@ Auth DBとdomain DBは共有しません。DB接続、volume、migrationも各�
 
 ## API契約
 
-FrontendとBFFの間は、BFFが生成するOpenAPIを契約の基準とします。
+FrontendとBFFの間は、BFFが生成するOpenAPIをschemaの正本とします。
 
 - BFFは3つの上流に対応する明示的なFrontend向けrouteとschemaを持つ
 - BFFのrouteとschemaからOpenAPIを生成する
@@ -125,6 +125,8 @@ FrontendとBFFの間は、BFFが生成するOpenAPIを契約の基準としま�
 - BFFは上流OpenAPIを透過公開せず、上流の成功responseを自身の契約で検証する
 
 これにより、FrontendはBackend API内部の仕様ではなく、BFFが公開するブラウザ向け契約に依存します。
+
+各上流APIは自身の契約を所有し、BFFが明示的にFrontend向け契約へ変換します。生成OpenAPIの有無を含む契約の正本と変更原則は[API契約](api-contracts.md)を参照してください。
 
 ## 設計上の境界
 
@@ -135,7 +137,7 @@ FrontendとBFFの間は、BFFが生成するOpenAPIを契約の基準としま�
 - Backend API同士は直接呼び合わない
 - DBとRedisはサービス間で共有しない
 
-認証とresource別sessionの詳細は[認証・セッション構成](authentication.md)、各サービスの技術的な位置づけは[個別構成](../../README.md#個別構成)を参照してください。
+認証とresource別sessionの詳細は[認証・セッション構成](authentication.md)、サービス間の契約管理は[API契約](api-contracts.md)、各サービスの技術的な位置づけは[個別構成](../../README.md#個別構成)を参照してください。
 
 ## この資料で扱わない内容
 

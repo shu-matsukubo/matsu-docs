@@ -59,4 +59,6 @@
 - APIはFrontendのCookie、画面都合、他resourceのtokenを認識しない
 - 家計簿MySQLはこのAPIだけが所有し、Auth DBや他domain DBと共有しない
 
-全体の通信関係は[システム全体構成](../architecture/system-overview.md)、JWTの受け渡しは[認証・セッション構成](../architecture/authentication.md)を参照してください。
+家計簿APIには生成済みOpenAPIがないため、endpoint単位の契約は実装と自動testを正本とします。BFFはその契約の利用者として、Frontendへ公開する範囲を自身のschemaで定義します。
+
+全体の通信関係は[システム全体構成](../architecture/system-overview.md)、JWTの受け渡しは[認証・セッション構成](../architecture/authentication.md)、契約の管理方針は[API契約](../architecture/api-contracts.md)を参照してください。

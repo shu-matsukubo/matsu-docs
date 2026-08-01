@@ -145,4 +145,4 @@ Arcade revokeに失敗しても、BFFは他resourceのslotを削除しません�
 
 BFFのsession Cookieは `HttpOnly`、`SameSite=Lax` を基本とし、HTTPS環境では `Secure` を有効にします。Frontendはaccess tokenやrefresh tokenを `localStorage` などへ保存しません。
 
-サービス全体の通信・データ所有関係は[システム全体構成](system-overview.md)を参照してください。
+サービス全体の通信・データ所有関係は[システム全体構成](system-overview.md)、認証APIを含むサービス間契約の正本は[API契約](api-contracts.md)を参照してください。

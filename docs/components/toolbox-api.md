@@ -51,4 +51,6 @@
 - 専用PostgreSQLをこのAPIだけが所有し、Auth DBや他domain DBと共有しない
 - 自動testの実DB検証は開発DBとは別の内部network・一時PostgreSQLを使い、開発volumeを共有しない
 
-全体のrouteと所有関係は[システム全体構成](../architecture/system-overview.md)、接続・refreshは[認証・セッション構成](../architecture/authentication.md)を参照してください。
+routeとschemaから生成するOpenAPIがToolbox APIのschemaの正本です。BFFはこの契約の利用者ですが、FrontendにはBFFが所有する別の契約を公開します。
+
+全体のrouteと所有関係は[システム全体構成](../architecture/system-overview.md)、接続・refreshは[認証・セッション構成](../architecture/authentication.md)、契約の管理方針は[API契約](../architecture/api-contracts.md)を参照してください。

@@ -49,4 +49,6 @@ Arcade access tokenの更新にはJSON `/auth/refresh` を使います。`/auth/
 
 専用PostgreSQLはArcade Authだけが所有し、Arcade domain DBや既存Auth DBと共有しません。自動testはhost portや開発volumeを持たない一時PostgreSQLを使い、開発用Auth DBを変更しません。
 
-2つのrealmの関係は[システム全体構成](../architecture/system-overview.md)、BFF仲介flowは[認証・セッション構成](../architecture/authentication.md)を参照してください。
+生成済みOpenAPIは持たないため、認証APIのendpoint単位の契約は実装と自動testを正本とします。BFFは認証APIの利用者であり、Browserへ公開するlogin、register、disconnectの契約はBFF側で所有します。
+
+2つのrealmの関係は[システム全体構成](../architecture/system-overview.md)、BFF仲介flowは[認証・セッション構成](../architecture/authentication.md)、契約の管理方針は[API契約](../architecture/api-contracts.md)を参照してください。
