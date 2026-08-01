@@ -51,4 +51,6 @@
 - 専用PostgreSQLをこのAPIだけが所有し、Arcade Auth DBや他domain DBと共有しない
 - APIはArcade AuthからJWKSを取得する以外、AuthのDBやrefresh tokenを認識しない
 
-全体のrouteと所有関係は[システム全体構成](../architecture/system-overview.md)、realmとtokenの受け渡しは[認証・セッション構成](../architecture/authentication.md)を参照してください。
+routeとschemaから生成するOpenAPIがArcade APIのschemaの正本です。BFFはこの契約の利用者ですが、FrontendにはBFFが所有する別の契約を公開します。
+
+全体のrouteと所有関係は[システム全体構成](../architecture/system-overview.md)、realmとtokenの受け渡しは[認証・セッション構成](../architecture/authentication.md)、契約の管理方針は[API契約](../architecture/api-contracts.md)を参照してください。
