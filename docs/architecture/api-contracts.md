@@ -40,12 +40,12 @@ flowchart LR
 | 家計簿Resource API | `matsu-api` | 実装と自動test | `matsu-bff` |
 | Toolbox Resource API | `matsu-toolbox-api` | route・schemaから生成したOpenAPI | `matsu-bff` |
 | Arcade Resource API | `matsu-arcade-api` | route・schemaから生成したOpenAPI | `matsu-bff` |
-| 家計簿・Toolbox認証API | `matsu-auth` | 実装と自動test | `matsu-bff` |
+| 家計簿・Toolbox認証API | `matsu-auth` | 実装 | `matsu-bff` |
 | Arcade認証API | `matsu-arcade-auth` | 実装と自動test | `matsu-bff` |
 
 生成済みOpenAPIは各提供リポジトリの `openapi/openapi.json` に置きます。FrontendはBFF OpenAPIから型を生成します。BFFはToolbox APIまたはArcade APIのOpenAPIをそのままFrontendへ公開せず、自身が所有するrouteとschemaでFrontend向け契約を定義します。
 
-OpenAPIがない家計簿APIと2つのAuth Serverでは、実装と自動testがendpoint単位の正本です。この設計資料には、利用者が連携に必要とする認証方式、責務、依存方向だけを記載します。
+OpenAPIがないサービスでは、表に示した実装と、存在する場合は自動testがendpoint単位の正本です。現時点の `matsu-auth` には自動testがないため、実装を正本とします。この設計資料には、利用者が連携に必要とする認証方式、責務、依存方向だけを記載します。
 
 ## 各境界の責務
 
