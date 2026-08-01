@@ -18,6 +18,7 @@
 
 - [システム全体構成](docs/architecture/system-overview.md)
 - [認証・セッション構成](docs/architecture/authentication.md)
+- [品質ゲート](docs/architecture/quality-gates.md)
 - [API契約](docs/architecture/api-contracts.md)
 
 ### 個別構成
