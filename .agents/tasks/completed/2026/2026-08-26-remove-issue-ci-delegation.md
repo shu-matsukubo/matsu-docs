@@ -58,7 +58,7 @@ agent strategyはagent種別と必須review経路を定め、人数や担当範�
 - [x] 稼働中文書に削除節・削除taskへの参照が残っていない。
 - [x] repositoryで定義された文書検証と`git diff --check`が成功するか、未実施理由を記録する。
 - [x] Worker self reviewとMain reviewを完了する。
-- [ ] `develop`向けdraft Pull Requestを公開し、URLを記録する。
+- [x] `develop`向けdraft Pull Requestを公開し、URLを記録する。
 - [x] 親gitlink / `modules.lock.conf`を変更せず、T3のmerge gateを維持する。
 
 ## 実施結果
@@ -68,6 +68,7 @@ agent strategyはagent種別と必須review経路を定め、人数や担当範�
 - CI: このrepositoryにはGitHub Actions、Markdown lint設定、検証manifestが存在しないため自動CIは未実施。文書変更向けの上記軽量検証で確認した。
 - documentation follow-up: なし
 - agent allocation・実行結果: Main 1名、Worker 1名。対象2ファイルが同一文書責務へ強く結合するためWorker 1名へまとめて割り当てた。Herschelが指定2ファイルを実装し、参照・link・見出し・diff checkを実行、self review findingなし。Mainが統合差分、通常品質方針の保持、repository境界を確認し、actionable findingなし。
-- commit: `053f8ec` task定義、`f286149` 文書cleanup実装。completed記録commitは本更新で作成する。
-- Pull Request: 公開準備中
-- 完了日時: 2026-08-26（draft Pull Request URL記録待ち）
+- commit: `053f8ec` task定義、`f286149` 文書cleanup実装、`19609b2` completed記録。PR URLは後続bookkeeping commitで記録する。
+- remote公開: GitHub Connectorで `codex/2026-08-26-remove-issue-ci-delegation` を公開した。remote `develop`は開始時と公開時とも`9afe227e13513d72dce445b509c07461e1a72419`。初回remote commitは`b65c6314034ebe46e4bdc4f9038a6e6bba9f45d5`、remote / local tree SHAは`9015c03be4a34e22e0b9e266fc85637b359e950a`で一致した。local push、認証追加、mergeは行っていない。
+- Pull Request: draft [#4](https://github.com/shu-matsukubo/matsu-docs/pull/4)（base: `develop`、head: `codex/2026-08-26-remove-issue-ci-delegation`）
+- 完了日時: 2026-08-26 18:04:51 +09:00
